@@ -1,0 +1,16 @@
+{
+    "epochs": 25,
+    "runs": 10,
+    "validation_split": 0.3,
+
+    "series_length": [1,2,3,4,5,6,7,8,9,10],
+
+    "_comment_resolution":"Chose from 4, 8, 16, 32, 64",
+    "resolution":[4, 8, 16, 32, 64],
+
+    "_comment_window_size":"Chose from 1, 0.1, 0.01, 0.001",
+    "window_size":[1, 0.1, 0.01, 0.001],
+
+    "_comment_scale":"Chose from 1.0, 0.05, 0.04, 0.03, 0.02, 0.01, 0.0001",
+    "scale": [1.0, 0.05, 0.04, 0.03, 0.02, 0.01, 0.0001]
+}
