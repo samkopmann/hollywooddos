@@ -4,3 +4,4 @@
 *.pkl
 *.npz
 *.pcap
+*.json
