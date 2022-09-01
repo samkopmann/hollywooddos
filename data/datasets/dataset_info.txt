@@ -1,1 +1,8 @@
 This file contains information about the data sets, including contents and structure.
+
+./
+    - mawi/
+        - mawi_201909011400.pcap
+        - mawi_background.csv
+    - ddos-2007
+        - ddostrace.20070804_******.pcap (5 minute chunks)

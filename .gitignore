@@ -5,3 +5,9 @@
 *.npz
 *.pcap
 *.json
+*.pdf
+*.stats
+*.html
+*.html*
+*md5
+*.pyc
