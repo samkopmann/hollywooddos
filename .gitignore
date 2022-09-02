@@ -1,6 +1,5 @@
 *.zip
 *.gz
-*.csv
 *.pkl
 *.npz
 *.pcap
