@@ -3,19 +3,19 @@ import matplotlib.pyplot as plt
 from sklearn.utils import shuffle
 import datetime
 import json
+import numpy as np
+
 from models import cnn_lstm
 from data.preprocessing import file_descriptor
-import numpy as np
 
 config = {}
 # Read json file
-with open('config.json') as json_file:
+with open('training_parameters.json') as json_file:
     config = json.load(json_file)
 
 histories = {}
-time = datetime.datetime.now().strftime("%Y%m%d-%H%M")
-result_file = '..results/training/%s.json' % time
-
+time = datetime.datetime.now().strftime("%Y%m%d-%H:%M")
+result_file = '../results/training/%s.json' % time
 
 
 for resolution in config['resolution']:
@@ -23,17 +23,19 @@ for resolution in config['resolution']:
     for window_size in config["window_size"]:
         histories[resolution][window_size] = {}
         for scale in config["scale"]:
-            histories[resolution][window_size][scale] = []
+            histories[resolution][window_size][scale] = {}
             training_data_file_name = file_descriptor.getTrainingDataFileName(resolution, window_size, scale)
-            dataset = pd.read_csv("../data/training/%s"%(training_data_file_name), delimiter=";")
+            dataset = pd.read_csv("../data/training/%s"%(training_data_file_name), delimiter=",", header=None, 
+                 index_col=False)
             for series_length in config['series_length']:
-                histories[resolution][window_size][scale][series_length] = {}
+                histories[resolution][window_size][scale][series_length] = []
                 for run in range(config["runs"]):
                     #Hash string to be used as filename
                     dataset=dataset.values
 
-                    X_train = dataset[:,:-2]
+                    X_train = dataset[:,1:-2]
                     number = X_train.shape[0]
+
                     X_train = X_train.reshape(number, resolution, resolution, 1).astype('float32')
                     Y_train = dataset[:,-1:]
                     training_set = []

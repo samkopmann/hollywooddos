@@ -1,0 +1,1 @@
+Created training data sets (composition of MAWI and CAIDA data) are stored in this directory.

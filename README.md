@@ -18,10 +18,13 @@ Download the datasets and store them in the `datasets/` directory.<br>
 After the download is finished, navigate to the preprocessing directory `cd data/preprocessing` and
 run the preprocessing scripts for each dataset `./mawi_preprocessing.sh` and `./caida_preprocessing.sh`.
 
-After the raw traffic traces are preprocessed, run the traffic composer `./traffic_composer.sh`.
+After the raw traffic traces have been preprocessed, run the traffic composer `./traffic_composer.sh`.
 The traffic composer injects CAIDA attack traffic into the MAWI background traffic.
 
 Note that access to the DDoS traffic dataset needs to be provided by CAIDA. If you are not authorized to
 access CAIDA data, you need to either request it for your research purposes or fall back to the preprocessed (aggregated) data provided by us via git large file storage.
 
+Preprocessed datasets are in `csv` format. Each row of the `csv`-files represents a traffic image with its corresponding label (0,1) or (1,0).
+
 ## Datasets' visualization
+![MAWI Traffic Intensity Development](./results/mawi_intensity_over_time.png)
