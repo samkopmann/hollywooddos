@@ -10,3 +10,4 @@
 *.html*
 *md5
 *.pyc
+data/datasets/ddos-2007/*
