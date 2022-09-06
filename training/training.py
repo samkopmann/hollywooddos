@@ -25,15 +25,14 @@ for resolution in config['resolution']:
         for scale in config["scale"]:
             histories[resolution][window_size][scale] = {}
             training_data_file_name = file_descriptor.getTrainingDataFileName(resolution, window_size, scale)
-            dataset = pd.read_csv("../data/training/%s"%(training_data_file_name), delimiter=",", header=None, 
-                 index_col=False)
+            dataset = pd.read_pickle("../data/training/%s.pkl"%(training_data_file_name))
             for series_length in config['series_length']:
                 histories[resolution][window_size][scale][series_length] = []
                 for run in range(config["runs"]):
                     #Hash string to be used as filename
                     dataset=dataset.values
 
-                    X_train = dataset[:,1:-2]
+                    X_train = dataset[:,:-2]
                     number = X_train.shape[0]
 
                     X_train = X_train.reshape(number, resolution, resolution, 1).astype('float32')
