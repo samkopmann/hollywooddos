@@ -31,11 +31,11 @@ Preprocessed datasets are in `csv` format. Each row of the `csv`-files represent
 
 ![MAWI Traffic Intensity Development](./results/mawi_intensity_over_time.png) ![CAIDA Traffic Intensity Development](./results/caida_intensity_over_time.png)
 
-### Traffic intensity comparison, as well as an illustration of scaled attack intensities_
+### Traffic intensity comparison, as well as an illustration of scaled attack intensities:
 
 ![Traffic Intensity Development](./results/combined_intensity_over_time.png) ![Scaled Traffic Intensity Development](./results/combined_scaled_intensity_over_time.png)
 
-### Source and destination IP address distributions, as well as attack subnet shift illustration.
+### Source and destination IP address distributions, as well as attack subnet shift illustration:
 Both source and destination address space are shifted for attack traffic. This shift is performed to achieve maximum
 overlap between background and attack traffic to make attack detection as hard as possible with utilized 2D-representation.
 
