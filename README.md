@@ -28,3 +28,5 @@ Preprocessed datasets are in `csv` format. Each row of the `csv`-files represent
 
 ## Datasets' visualization
 ![MAWI Traffic Intensity Development](./results/mawi_intensity_over_time.png) ![MAWI Traffic Intensity Development](./results/caida_intensity_over_time.png)
+
+![MAWI Traffic Intensity Development](./results/combined_intensity_over_time.png) ![MAWI Traffic Intensity Development](./results/combined_scaled_intensity_over_time.png)
