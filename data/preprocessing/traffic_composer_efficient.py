@@ -32,11 +32,12 @@ def reduce_map_array(array):
 
 dir = os.getcwd()
 
-def increment_pixel(images, resolution, row, ip_src, ip_dst):
+def increment_pixel(images, resolution, row, ip_src, ip_dst, is_attack):
     x = int(ip_dst) % resolution
     y = int(ip_src) % resolution
     images[row][y*resolution + x] = images[row][y*resolution + x] + 1
-    images[row][-1] = 1
+    if is_attack:
+        images[row][-1] = 1
 
 def compose_dataset(size, resolutions, intensity_scales):
     resolution = max(resolutions)
@@ -62,11 +63,11 @@ def compose_dataset(size, resolutions, intensity_scales):
             caida["frame.time_relative"] = caida["frame.time_relative"].apply(lambda x: int(x/size) + int(i * (150/size)))
 
         for index, row in mawi.iterrows():
-            increment_pixel(benign_images, resolution, row["frame.time_relative"], row["ip.src"], row["ip.dst"])
+            increment_pixel(benign_images, resolution, row["frame.time_relative"], row["ip.src"], row["ip.dst"], False)
 
         if caida_files[i] != -1:
             for index, row in caida.iterrows():
-                increment_pixel(attack_images, resolution, row["frame.time_relative"], row["ip.src"], row["ip.dst"])
+                increment_pixel(attack_images, resolution, row["frame.time_relative"], row["ip.src"], row["ip.dst"], True)
 
     while resolution > 2:
         if resolution in resolutions:
@@ -78,8 +79,8 @@ def compose_dataset(size, resolutions, intensity_scales):
                 dataframe.to_pickle("../training/%d_resolution##%d_size##%d_scale.pkl" % (resolution, size, scale))
                 dataframe.to_csv("../training/%d_resolution##%d_size##%d_scale.csv" % (resolution, size, scale), index=False, header=False)
         resolution = resolution / 2
-        benign_images = np.apply_along_axis(reduce_map_array, 0, benign_images)
-        attack_images = np.apply_along_axis(reduce_map_array, 0, attack_images)
+        benign_images = np.apply_along_axis(reduce_map_array, 1, benign_images)
+        attack_images = np.apply_along_axis(reduce_map_array, 1, attack_images)
 
 for size in [1.0]:
     resolutions = [8, 4]
