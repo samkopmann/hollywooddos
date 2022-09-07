@@ -27,4 +27,4 @@ access CAIDA data, you need to either request it for your research purposes or f
 Preprocessed datasets are in `csv` format. Each row of the `csv`-files represents a traffic image with its corresponding label (0,1) or (1,0).
 
 ## Datasets' visualization
-![MAWI Traffic Intensity Development](./results/mawi_intensity_over_time.png)
+![MAWI Traffic Intensity Development](./results/mawi_intensity_over_time.png) ![MAWI Traffic Intensity Development](./results/caida_intensity_over_time.png)
