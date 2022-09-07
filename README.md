@@ -27,6 +27,16 @@ access CAIDA data, you need to either request it for your research purposes or f
 Preprocessed datasets are in `csv` format. Each row of the `csv`-files represents a traffic image with its corresponding label (0,1) or (1,0).
 
 ## Datasets' visualization
-![MAWI Traffic Intensity Development](./results/mawi_intensity_over_time.png) ![MAWI Traffic Intensity Development](./results/caida_intensity_over_time.png)
+### Traffic intensities for both background (MAWI) and attack (CAIDA) traffic:
 
-![MAWI Traffic Intensity Development](./results/combined_intensity_over_time.png) ![MAWI Traffic Intensity Development](./results/combined_scaled_intensity_over_time.png)
+![MAWI Traffic Intensity Development](./results/mawi_intensity_over_time.png) ![CAIDA Traffic Intensity Development](./results/caida_intensity_over_time.png)
+
+### Traffic intensity comparison, as well as an illustration of scaled attack intensities_
+
+![Traffic Intensity Development](./results/combined_intensity_over_time.png) ![Scaled Traffic Intensity Development](./results/combined_scaled_intensity_over_time.png)
+
+### Source and destination IP address distributions, as well as attack subnet shift illustration.
+Both source and destination address space are shifted for attack traffic. This shift is performed to achieve maximum
+overlap between background and attack traffic to make attack detection as hard as possible with utilized 2D-representation.
+
+![Source Subnet Distribution](./results/source_ip_distributions.png) ![Destination Subnet Distribution](./results/destination_ip_distributions.png)
