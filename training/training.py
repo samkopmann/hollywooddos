@@ -32,7 +32,7 @@ for resolution in config['resolution']:
                     #Hash string to be used as filename
                     dataset=dataset.values
 
-                    X_train = dataset[:,:-2]
+                    X_train = dataset[:,:-1]
                     number = X_train.shape[0]
 
                     X_train = X_train.reshape(number, resolution, resolution, 1).astype('float32')
