@@ -1,3 +1,4 @@
+from datetime import datetime
 from math import sqrt
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -13,11 +14,8 @@ import skimage.measure
 mawi_dir = "../datasets/mawi/"
 caida_dir = "../datasets/ddos-2007/"
 
-#mawi_files = [0, 1, 2, 3, 4, 5]
-#caida_files = [-1, -1, 11, 12, 13, -1]
-
-mawi_files = [2]
-caida_files = [11]
+mawi_files = [0, 1, 2, 3, 4, 5]
+caida_files = [-1, -1, 11, 12, 13, -1]
 
 caida_factor_larger_than_mawi = 1.5516415989110433
 
@@ -72,19 +70,20 @@ def compose_dataset(size, resolutions, intensity_scales):
     while resolution > 2:
         if resolution in resolutions:
             for scale in intensity_scales:
+                print("Start - %s size # resolution %s # scale %s         %s" % (size, resolution, scale, datetime.datetime.now().strftime("%Y%m%d-%H:%M")))
                 scaled_attack = np.copy(attack_images)
                 scaled_attack[:,:-1] = scaled_attack[:, :-1]*(scale/caida_factor_larger_than_mawi)
                 composed_maps = np.add(benign_images, scaled_attack)
                 dataframe = pd.DataFrame(composed_maps)
                 dataframe.to_pickle("../training/%d_resolution##%d_size##%d_scale.pkl" % (resolution, size, scale))
-                dataframe.to_csv("../training/%d_resolution##%d_size##%d_scale.csv" % (resolution, size, scale), index=False, header=False)
+                print("Done")
         resolution = resolution / 2
         benign_images = np.apply_along_axis(reduce_map_array, 1, benign_images)
         attack_images = np.apply_along_axis(reduce_map_array, 1, attack_images)
 
-for size in [1.0]:
-    resolutions = [8, 4]
-    scales = [1.0]
+for size in [1.0, 0.1, 0.01]:
+    resolutions = [32, 16, 8, 4]
+    scales = [1.0, 0.1, 0.01]
     print("Creating dataset - %s size - %s res - %s scales" % (size, resolutions, scales))
     compose_dataset(size, resolutions, scales)
 
