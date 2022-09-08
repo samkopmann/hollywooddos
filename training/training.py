@@ -58,8 +58,14 @@ for resolution in config['resolution']:
                     model = cnn_lstm.getModel(resolution)
                     history = model.fit(X,Y,epochs=config["epochs"], validation_split=config["validation_split"], batch_size=200, verbose=1)
                     histories[resolution][window_size][scale][series_length].append({
+                        "loss": history.history["binary_crossentropy"],
+                        "val_loss": history.history["val_binary_crossentropy"],
                         "accuracy": history.history["accuracy"],
                         "val_accuracy": history.history["val_accuracy"],
+                        "precision": history.history["precision"],
+                        "val_precision": history.history["val_precision"],
+                        "recall": history.history["recall"],
+                        "val_recall": history.history["val_recall"],
                         "val_TP": history.history["val_TP"],
                         "val_TN": history.history["val_TN"],
                         "val_FP": history.history["val_FP"],
