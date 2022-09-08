@@ -19,6 +19,9 @@ caida_files = [-1, -1, 11, 12, 13, -1]
 
 caida_factor_larger_than_mawi = 1.5516415989110433
 
+shift_attack_sources = 4* (2**25)
+shift_attack_destinations = 66* (2**25)
+
 def reduce_map_array(array):
     counter_values = array[:-1]
     resolution = int(sqrt(len(counter_values)))
@@ -56,8 +59,8 @@ def compose_dataset(size, resolutions, intensity_scales):
         if caida_files[i] != -1:
             file = "ddos-%d.csv" % caida_files[i]
             caida = pd.read_csv(caida_dir+file).dropna()
-            caida["ip.src"] = caida["ip.src"].apply(lambda x: int( int(ipaddress.IPv4Address(  x.split(",")[0]  )) / (2**32 / resolution))   )
-            caida["ip.dst"] = caida["ip.dst"].apply(lambda x: int( int(ipaddress.IPv4Address(  x.split(",")[0]  )) / (2**32 / resolution))   )
+            caida["ip.src"] = caida["ip.src"].apply(lambda x: int( ((int(ipaddress.IPv4Address(  x.split(",")[0]  )) + shift_attack_sources)%(2**32)) / (2**32 / resolution))   )
+            caida["ip.dst"] = caida["ip.dst"].apply(lambda x: int( ((int(ipaddress.IPv4Address(  x.split(",")[0]  )) + shift_attack_destinations)%(2**32)) / (2**32 / resolution))   )
             caida["frame.time_relative"] = caida["frame.time_relative"].apply(lambda x: int(x/size) + int(i * (150/size)))
 
         for index, row in mawi.iterrows():
@@ -70,20 +73,20 @@ def compose_dataset(size, resolutions, intensity_scales):
     while resolution > 2:
         if resolution in resolutions:
             for scale in intensity_scales:
-                print("Start - %s size # resolution %s # scale %s         %s" % (size, resolution, scale, datetime.datetime.now().strftime("%Y%m%d-%H:%M")))
+                print("Start - %0.4f size # resolution %s # scale %0.4f   %s" % (size, resolution, scale, datetime.now().strftime("%Y%m%d-%H:%M")))
                 scaled_attack = np.copy(attack_images)
                 scaled_attack[:,:-1] = scaled_attack[:, :-1]*(scale/caida_factor_larger_than_mawi)
                 composed_maps = np.add(benign_images, scaled_attack)
                 dataframe = pd.DataFrame(composed_maps)
-                dataframe.to_pickle("../training/%d_resolution##%d_size##%d_scale.pkl" % (resolution, size, scale))
+                dataframe.to_pickle("../training/%d_resolution##%0.4f_size##%0.4f_scale.pkl" % (resolution, size, scale))
                 print("Done")
         resolution = resolution / 2
         benign_images = np.apply_along_axis(reduce_map_array, 1, benign_images)
         attack_images = np.apply_along_axis(reduce_map_array, 1, attack_images)
 
-for size in [1.0, 0.1, 0.01]:
+for size in [1, 0.1, 0.01, 0.001]:
     resolutions = [32, 16, 8, 4]
-    scales = [1.0, 0.1, 0.01]
+    scales = [1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.01, 0.001]
     print("Creating dataset - %s size - %s res - %s scales" % (size, resolutions, scales))
     compose_dataset(size, resolutions, scales)
 
