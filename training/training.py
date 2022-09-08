@@ -26,11 +26,11 @@ for resolution in config['resolution']:
             histories[resolution][window_size][scale] = {}
             training_data_file_name = file_descriptor.getTrainingDataFileName(resolution, window_size, scale)
             dataset = pd.read_pickle("../data/training/%s.pkl"%(training_data_file_name))
+            dataset=dataset.values
             for series_length in config['series_length']:
                 histories[resolution][window_size][scale][series_length] = []
                 for run in range(config["runs"]):
                     #Hash string to be used as filename
-                    dataset=dataset.values
 
                     X_train = dataset[:,:-1]
                     number = X_train.shape[0]
