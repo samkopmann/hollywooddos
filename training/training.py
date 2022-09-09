@@ -71,6 +71,8 @@ for resolution in config['resolution']:
                         "val_FP": history.history["val_FP"],
                         "val_FN": history.history["val_FN"],
                     })
+
+                    #model.save("../results/models/%s" % time)
                 json_string = json.dumps(histories)
                 with open(result_file, 'w') as outfile:
                     json.dump(json_string, outfile)

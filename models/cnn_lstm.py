@@ -22,7 +22,7 @@ def getModel(resolution):
           padding="same",
       ))
   )
-  #model.add(TimeDistributed(MaxPooling2D(pool_size=2)))
+  model.add(TimeDistributed(MaxPooling2D(pool_size=2)))
   model.add(TimeDistributed(Dropout(0.1)))
   model.add(
       TimeDistributed(Conv2D(
@@ -40,7 +40,7 @@ def getModel(resolution):
           activation='relu',
       ))
   )
- # model.add(TimeDistributed(MaxPooling2D(pool_size=2)))
+  model.add(TimeDistributed(MaxPooling2D(pool_size=2)))
   model.add(TimeDistributed(Dropout(0.1)))
   model.add(TimeDistributed(Flatten()))
   model.add(
@@ -52,7 +52,7 @@ def getModel(resolution):
 
   model.compile(
       loss='binary_crossentropy',
-      metrics=['accuracy', 
+      metrics=['binary_crossentropy','accuracy', 
       tf.keras.metrics.Precision(name="precision"),
       tf.keras.metrics.Recall(name="recall"),
       tf.keras.metrics.FalsePositives(name="FP"),

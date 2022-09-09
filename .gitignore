@@ -12,3 +12,4 @@
 *.pyc
 *.csv
 data/datasets/ddos-2007/*
+results/*
