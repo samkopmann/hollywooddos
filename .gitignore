@@ -12,4 +12,5 @@
 *.pyc
 *.csv
 data/datasets/ddos-2007/*
-results/*
+results/models/*
+results/training/*
