@@ -41,7 +41,7 @@ overlap between background and attack traffic to make attack detection as hard a
 
 ![Source Subnet Distribution](./results/source_ip_distributions.png) ![Destination Subnet Distribution](./results/destination_ip_distributions.png)
 
-### Training and Evaluation
+## Training and Evaluation
 Training can be started by adjusting `training/training_parameters.json` and executing `traing/traning.py`.
 The notebook `visualization.ipynb` contains executable cells to illustrate training performance over all epochs, e.g., loss curves.
 
