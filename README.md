@@ -40,3 +40,14 @@ Both source and destination address space are shifted for attack traffic. This s
 overlap between background and attack traffic to make attack detection as hard as possible with utilized 2D-representation.
 
 ![Source Subnet Distribution](./results/source_ip_distributions.png) ![Destination Subnet Distribution](./results/destination_ip_distributions.png)
+
+### Training and Evaluation
+Training can be started by adjusting `training/training_parameters.json` and executing `traing/traning.py`.
+The notebook `visualization.ipynb` contains executable cells to illustrate training performance over all epochs, e.g., loss curves.
+
+![Training loss](./results/loss_dev.png) ![Validation loss](./results/val_loss_dev.png)
+
+Visualization does not only contain metric development over epochs during the training, but also
+comparative illustration across varying parameters, e.g., different image series lengths or different time frame durations.
+
+![Training loss](./results/impact_series_length.png) ![Validation loss](./results/impact_time_frame_duration.png)
